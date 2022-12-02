@@ -163,6 +163,7 @@
 
 
         <!--限流持久化到nacos-->
+
         <dependency>
             <groupId>com.alibaba.csp</groupId>
             <artifactId>sentinel-datasource-nacos</artifactId>
@@ -210,5 +211,6 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
         </dependency>
-    </dependencies>
+
+    </dependencies>>
 </project>
