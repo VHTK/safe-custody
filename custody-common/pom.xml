@@ -192,11 +192,12 @@
             <artifactId>spring-boot-starter-cache</artifactId>
         </dependency>
 
-
+        <!--
         <dependency>
             <groupId>org.apache.shardingsphere</groupId>
             <artifactId>sharding-jdbc-spring-boot-starter</artifactId>
         </dependency>
+        -->
 
 
         <!-- https://mvnrepository.com/artifact/com.xuxueli/xxl-job-core -->
