@@ -23,7 +23,7 @@ public class Result<T> implements Serializable {
 		return result;
 	}
 
-	public static Object info(String code, String s, String message) {
+	public static Result info(String code, String s, String message) {
 		Result<String> result = new Result<>();
 		result.setCode(code);
 		result.setResult(s);

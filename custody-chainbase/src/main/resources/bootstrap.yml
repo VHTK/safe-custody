@@ -1,23 +1,26 @@
 spring:
   application:
-    name: custody-backend
+    name: custody-chainbase
   profiles:
     active: dev
   cloud:
     nacos:
-      config:
-        username: nacos
-        password: nacos
-        server-addr: http://127.0.0.1:8848
-        namespace: dev
-        file-extension: yaml
-        prefix: ${spring.application.name}
-        group: DEFAULT_GROUP
-        enabled: true
+#      config:
+#        username: nacos
+#        password: nacos
+#        server-addr: 127.0.0.1:8848
+#        namespace: dev
+#        file-extension: yaml
+#        prefix: ${spring.application.name}
+#        group: DEFAULT_GROUP
+#        enabled: true
       discovery:
         server-addr: 127.0.0.1:8848
         service: ${spring.application.name}
         namespace: dev
+
+
+
 
   datasource:
     # jdbc 连接基础配置
@@ -26,7 +29,7 @@ spring:
     #使用的 mysql 版本为：Server version: 5.6.11 MySQL Community Server (GPL)
     #mysql 驱动版本：mysql-connector-java-8.0.16.jar
     #高版本 Mysql 驱动时，配置的 driver-class-name 不再是 com.mysql.jdbc.Driver，url 后面必须设置时区 serverTimezone
-    url: jdbc:mysql://127.0.0.1:3306/custody_backend?characterEncoding=UTF-8&serverTimezone=UTC
+    url: jdbc:mysql://127.0.0.1:3306/custody_chainbase?characterEncoding=UTF-8&serverTimezone=UTC
     driver-class-name: com.mysql.cj.jdbc.Driver
 
     #hikari数据源特性配置
@@ -39,5 +42,4 @@ spring:
       idle-timeout: 600000
       max-lifetime: 3000000 #连接最大存活时间,默认值30分钟.设置应该比mysql设置的超时时间短
       connection-test-query: select 1 #连接测试查询
-
 
