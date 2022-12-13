@@ -20,8 +20,8 @@ spring:
         namespace: dev
   config:
     import:
-      - optional:nacos:application-@profiles.active@.yml
-      - optional:nacos:${spring.application.name}-@profiles.active@.yml
+      - optional:nacos:application-@profiles.active@.yaml
+      - optional:nacos:${spring.application.name}-@profiles.active@.yaml
 
   datasource:
     # jdbc 连接基础配置
