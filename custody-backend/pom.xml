@@ -19,7 +19,13 @@
     <dependencies>
         <dependency>
             <groupId>com.bourne</groupId>
-            <artifactId>custody-common</artifactId>
+            <artifactId>custody-common-core</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.bourne</groupId>
+            <artifactId>custody-common-log</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
