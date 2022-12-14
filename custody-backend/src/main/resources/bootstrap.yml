@@ -10,7 +10,7 @@ spring:
         password: root@123
         server-addr: 49.235.77.224:8848
         namespace: dev
-        file-extension: yaml
+        file-extension: yml
         prefix: ${spring.application.name}
         group: DEFAULT_GROUP
         enabled: true
@@ -20,8 +20,8 @@ spring:
         namespace: dev
   config:
     import:
-      - optional:nacos:application-@profiles.active@.yaml
-      - optional:nacos:${spring.application.name}-@profiles.active@.yaml
+      - optional:nacos:application-@profiles.active@.yml
+      - optional:nacos:${spring.application.name}-@profiles.active@.yml
 
   datasource:
     # jdbc 连接基础配置
