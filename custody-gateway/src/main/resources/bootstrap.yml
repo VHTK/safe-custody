@@ -13,5 +13,5 @@ spring:
         refresh-enabled: true
   config:
     import:
-#      - optional:nacos:bootstrap-@profiles.active@.yml
+      - optional:nacos:bootstrap-@profiles.active@.yml
       - optional:nacos:${spring.application.name}-@profiles.active@.yml

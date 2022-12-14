@@ -11,14 +11,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RefreshScope
 public class TestController {
 
-    @Value("${user.desc}")
+    @Value("${user.value}")
     @Getter
     @Setter
     private String value;
 
+    @Value("${user.desc}")
+    @Getter
+    @Setter
+    private String desc;
+
     @GetMapping("/test")
     private String test() {
-        return getValue();
+        return getValue() + " " + getDesc();
 
     }
 }
