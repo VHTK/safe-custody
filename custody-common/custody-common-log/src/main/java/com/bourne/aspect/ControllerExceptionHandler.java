@@ -1,5 +1,6 @@
 package com.bourne.aspect;
 
+import com.bourne.exception.BusinessException;
 import com.bourne.result.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

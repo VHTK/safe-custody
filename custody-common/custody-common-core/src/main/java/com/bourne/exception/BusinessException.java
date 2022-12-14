@@ -1,4 +1,4 @@
-package com.bourne.aspect;
+package com.bourne.exception;
 
 public class BusinessException extends RuntimeException {
 
