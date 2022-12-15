@@ -2,6 +2,8 @@ package com.bourne.controller;
 
 import com.bourne.feign.ProductFeignService;
 import com.bourne.result.Result;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +21,9 @@ public class TestController {
     @Autowired
     private ProductFeignService productFeignService;
 
-    @Value("${user.name}")
+    @Value("${user.value}")
+    @Getter
+    @Setter
     private String testStr;
 
     @GetMapping("/get")
@@ -30,7 +34,7 @@ public class TestController {
 
     @GetMapping("/test")
     public String test(){
-        return testStr;
+        return getTestStr();
     }
 }
 
