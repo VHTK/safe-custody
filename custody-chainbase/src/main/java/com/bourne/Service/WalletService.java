@@ -45,12 +45,12 @@ public class WalletService {
     private static String emptyAddress;
 
     static {
-         emptyAddress = "0x0000000000000000000000000000000000000000";
+        emptyAddress = "0x0000000000000000000000000000000000000000";
         walletFilePath = "/Users/zhangtao/Documents/walletfile";
         try {
             WebSocketClient webSocketClient = new WebSocketClient(new URI("wss://goerli.infura.io/ws/v3/b497e3a7cb6649128a25aa1653fbb70e"));
             boolean includeRawResponses = false;
-             webSocketService = new WebSocketService(webSocketClient, includeRawResponses);
+            webSocketService = new WebSocketService(webSocketClient, includeRawResponses);
             // 注意該程式碼在官方文檔沒說，但必须要加上，否則會出現 WebsocketNotConnectedException。
             webSocketService.connect();
         } catch (URISyntaxException e) {
@@ -67,18 +67,18 @@ public class WalletService {
         System.out.println(address);
         // LINK
         String contractAddress = "0x326C977E6efc84E512bB9C30f76E30c160eD06FB";
-        BigInteger balance = getTokenBalance(address,contractAddress);
+        BigInteger balance = getTokenBalance(address, contractAddress);
         System.out.println(balance);
 
         // ETH
         System.out.println(getBalance(address));
 
-        System.out.println(transfer(walletName,password,"0x30635bA975d8e9116b79d8CCd8c6250C05328f3d",BigDecimal.valueOf(0.001)));
+        System.out.println(transfer(walletName, password, "0x30635bA975d8e9116b79d8CCd8c6250C05328f3d", BigDecimal.valueOf(0.001)));
 
-        System.out.println(transferToken(walletName,password,"0x30635bA975d8e9116b79d8CCd8c6250C05328f3d",contractAddress,BigDecimal.valueOf(50)));
+        System.out.println(transferToken(walletName, password, "0x30635bA975d8e9116b79d8CCd8c6250C05328f3d", contractAddress, BigDecimal.valueOf(50)));
     }
 
-    public  static String createWallet(String walletName, String password) throws InvalidAlgorithmParameterException, CipherException, IOException, NoSuchAlgorithmException, NoSuchProviderException {
+    public static String createWallet(String walletName, String password) throws InvalidAlgorithmParameterException, CipherException, IOException, NoSuchAlgorithmException, NoSuchProviderException {
         // TODO walletName should save database bind with walletFileName;
         String walletFileName = WalletUtils.generateNewWalletFile(password, new File(walletFilePath), false);
         return walletFileName;
@@ -91,7 +91,7 @@ public class WalletService {
         return address;
     }
 
-    private static  BigInteger getBalance(String address) throws IOException {
+    private static BigInteger getBalance(String address) throws IOException {
         Web3j web3j = Web3j.build(webSocketService);
         DefaultBlockParameter defaultBlockParameter = new DefaultBlockParameterNumber(web3j.ethBlockNumber().send().getBlockNumber());
         EthGetBalance ethGetBalance = web3j.ethGetBalance(address, defaultBlockParameter).send();
@@ -129,6 +129,7 @@ public class WalletService {
 
     /**
      * ETH 交易
+     *
      * @param walletName
      * @param password
      * @param toAddress
@@ -139,15 +140,15 @@ public class WalletService {
      * @throws ExecutionException
      * @throws InterruptedException
      */
-    public static String transfer(String walletName, String password,String toAddress, BigDecimal value) throws CipherException, IOException, ExecutionException, InterruptedException {
+    public static String transfer(String walletName, String password, String toAddress, BigDecimal value) throws CipherException, IOException, ExecutionException, InterruptedException {
         Web3j web3j = Web3j.build(webSocketService);
 
         //加载转账所需的凭证，用私钥
         String walleFilePath = walletFilePath + File.separator + walletName;
         Credentials credentials = WalletUtils.loadCredentials(password, walleFilePath);
         String fromAddress = getWalletAddress(walletName, password);
-            //获取nonce，交易笔数
-            BigInteger nonce = getNonce(web3j, fromAddress);
+        //获取nonce，交易笔数
+        BigInteger nonce = getNonce(web3j, fromAddress);
 
         // TODO
         //gasPrice和gasLimit 都可以手动设置
@@ -159,18 +160,19 @@ public class WalletService {
         //BigInteger.valueOf(4300000L) 如果交易失败 很可能是手续费的设置问题
         BigInteger gasLimit = BigInteger.valueOf(60000L);
 
-            //创建RawTransaction交易对象
-            RawTransaction rawTransaction = RawTransaction.createEtherTransaction(nonce, gasPrice, gasLimit, toAddress, Convert.toWei(value, Convert.Unit.ETHER).toBigIntegerExact());
-            //签名Transaction，这里要对交易做签名
-            byte[] signMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
-            String hexValue = Numeric.toHexString(signMessage);
-            //发送交易
-            EthSendTransaction ethSendTransaction = web3j.ethSendRawTransaction(hexValue).sendAsync().get();
-            return ethSendTransaction.getTransactionHash();
+        //创建RawTransaction交易对象
+        RawTransaction rawTransaction = RawTransaction.createEtherTransaction(nonce, gasPrice, gasLimit, toAddress, Convert.toWei(value, Convert.Unit.ETHER).toBigIntegerExact());
+        //签名Transaction，这里要对交易做签名
+        byte[] signMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
+        String hexValue = Numeric.toHexString(signMessage);
+        //发送交易
+        EthSendTransaction ethSendTransaction = web3j.ethSendRawTransaction(hexValue).sendAsync().get();
+        return ethSendTransaction.getTransactionHash();
     }
 
     /**
      * ERC20 交易
+     *
      * @param walletName
      * @param password
      * @param toAddress
@@ -181,11 +183,12 @@ public class WalletService {
     public static String transferToken(String walletName, String password, String toAddress, String contractAddress, BigDecimal value) throws CipherException, IOException, ExecutionException, InterruptedException {
         Web3j web3j = Web3j.build(webSocketService);
 
-       value =  value.multiply(BigDecimal.TEN.pow(getTokenDecimals(web3j,contractAddress)));
+        value = value.multiply(BigDecimal.TEN.pow(getTokenDecimals(web3j, contractAddress)));
 
         //加载转账所需的凭证，用私钥
         String walleFilePath = walletFilePath + File.separator + walletName;
         Credentials credentials = WalletUtils.loadCredentials(password, walleFilePath);
+
         String fromAddress = getWalletAddress(walletName, password);
         //获取nonce，交易笔数
         BigInteger nonce = getNonce(web3j, fromAddress);
