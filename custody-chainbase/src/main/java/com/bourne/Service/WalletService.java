@@ -73,9 +73,9 @@ public class WalletService {
         // ETH
         System.out.println(getBalance(address));
 
-        System.out.println(transfer(walletName, password, "0x30635bA975d8e9116b79d8CCd8c6250C05328f3d", BigDecimal.valueOf(0.001)));
+       // System.out.println(transfer(walletName, password, "0x30635bA975d8e9116b79d8CCd8c6250C05328f3d", BigDecimal.valueOf(0.001)));
 
-        System.out.println(transferToken(walletName, password, "0x30635bA975d8e9116b79d8CCd8c6250C05328f3d", contractAddress, BigDecimal.valueOf(50)));
+        System.out.println(transferToken(walletName, password, "0x30635bA975d8e9116b79d8CCd8c6250C05328f3d", contractAddress, BigDecimal.valueOf(3.99999999999999899)));
     }
 
     public static String createWallet(String walletName, String password) throws InvalidAlgorithmParameterException, CipherException, IOException, NoSuchAlgorithmException, NoSuchProviderException {
@@ -203,8 +203,9 @@ public class WalletService {
             log.error("getGasPriceError from:[{}] to:[{}] amount:[{}] contract [{}]", fromAddress, toAddress, value, contractAddress);
             return null;
         }
-        //BigInteger.valueOf(4300000L) 如果交易失败 很可能是手续费的设置问题
-        BigInteger gasLimit = BigInteger.valueOf(60000L);
+        BigInteger.valueOf(6000L);
+        //如果交易失败 很可能是手续费的设置问题
+        BigInteger gasLimit = BigInteger.valueOf(4300000L);
         //ERC20代币合约方法
         Function function = new Function(
                 "transfer",
